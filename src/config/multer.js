@@ -1,6 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 
+
 module.exports = {
     dest: path.resolve(__dirname, "..", "..", "..", "..", "www", "museu", "uploads"),
     storage: multer.diskStorage({

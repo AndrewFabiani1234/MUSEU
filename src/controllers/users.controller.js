@@ -29,7 +29,7 @@ class usersController {
     registerUsuario() {
         return function (req, res) {
             const { data } = req.body;
-
+            
             users.registerUsuario(data).then((response) => {
                 if (response.error) return res.status(response.code).send({ error: response.error });
                 else return res.status(200).json(response);

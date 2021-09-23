@@ -1,6 +1,8 @@
 const db = require("../database/db");
 const { response } = require('express');
 require('dotenv').config({ path: __dirname + '/./../../../.env' });
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 class partsRepository {
 
@@ -96,6 +98,33 @@ class partsRepository {
                     });
             });
         }
+
+
+        inserirPeca(data, file) {
+            return new Promise((resolve, reject) => {
+                this.db.query('SELECT * FROM pecas WHERE numero=?', [data.numero],
+                    async (error, response) => {
+                        if (error) return reject(new Error(error));
+                        try {
+                            if (response[0]) {
+                                return resolve({ error: `Peça já cadastrada!`, code: 203 });
+                            } else {
+                             
+                                this.db.query(`INSERT INTO pecas (numero, catalogo, nome, descricao, data_entrada, procedencia, url_transcricao, url_imagem) VALUES(?,?,?,?,?,?,?,?)`,
+                                    [data.numero, data.catalogo, data.nome, data.descricao, data.data_entrada, data.procedencia]
+                                    , (error, response) => {
+                                        if (error) throw error;
+                                        console.log(data.numero);
+                                        return resolve({ success: 'Peça cadastrada com sucesso!'});
+                                    });
+                            }
+    
+                        } catch (error) { console.log(error); return reject(new Error(error)); };
+                    });
+            });
+        }
+
+
 }
 
 module.exports = partsRepository;

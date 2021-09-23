@@ -1,7 +1,11 @@
 const express = require('express');
 const routes = express.Router();
+const multer = require("multer");
+const multerConfig = require("./config/multer");
 
-const PartsController = require("./controllers/PartsController");
+const { insert }  = require('./controllers/PartsController');
+
+const PartsController = require("./controllers/PartsController")
 const partsController = new PartsController();
 
 const UserController = require("./controllers/users.controller");
@@ -13,6 +17,8 @@ routes.get("/pecas/:numero", partsController.listPeca());
 routes.post("/pecas/register", partsController.registerPeca());
 routes.patch("/pecas/update", partsController.updatePeca());
 routes.delete("/pecas/:numero", partsController.deletePeca());
+
+
 
 /* Endpoints com usuarios */
 routes.get("/usuarios", usersController.listUsuario());

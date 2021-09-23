@@ -27,7 +27,7 @@ class usersRepository {
                                 [data.email, data.senha, data.nome, data.cidade, data.pais, data.data_nasc, data.telefone, data.administrador]
                                 , (error, response) => {
                                     if (error) throw error;
-                                    console.log(data.nome);
+                                    // console.log(data.nome);
                                     return resolve({ success: 'Usuario cadastrado com sucesso!'});
                                 });
                         }
